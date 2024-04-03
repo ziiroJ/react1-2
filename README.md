@@ -1,6 +1,225 @@
-# 정지호 202230133
+# ⛄ 202230133 정지호
+## 4월 3일 강의
+### props 사용법
+* JSX에서는 key-value쌍으로 props를 구성
+```js
+function App(props) {
+    return(
+        <Profile
+            name="지호"
+            intro='안녕하세요.'
+            viewCount={1500}
+        />
+    );
+}
+```
+1. Profile 컴포넌트로 name, introductio, viewCount Props를 전달한다.
+2. 이때 전달되는 props는 다음과 같은 자바스크립트 객체임
+```js
+{
+    name="지호"
+    intro='안녕하세요.'
+    viewCount={1500}
+}
+```
+* JSX에서 중괄호를 사용하면 JS코드를 넣을 수 있음.
+* props를 통해 value를 할당할 수도 있고, 직접 중괄호를 상요하여 할당할 수도 있음.
+```js
+function App(props) {
+    return(
+        <Layout
+            width={2500}
+            height={1400}
+            header={
+                <Header title="리액트" />
+            }
+            footer={
+                <Footer />
+            }
+        />
+    );
+}
+```
+
+* JSX를 사용하지 않는 경우 props의 전달 방법은 createElement()함수 사용
+
+### 컴포넌트 만들기
+#### 1.컴포넌트 종류
+* 리액트 초기 버전을 사용할 때는 클래스형 컴포넌트를 주로 사용
+* 이후 Hook이라는 개념이 나옴녀서 최근에는 함수형 컴포넌트를 주로 사용.
+* 예전에 작성된 코드나 문서들이 클래스형 컴포넌트를 사용하고 있기에, <br>
+    클래스형 컴포넌트와 컴포넌트의 생명주기에 관해서도 공부해야함. 
+#### 2.함수형 컴포넌트
+* Welcome 컴포넌트는 props를 받아, 받은 props 중 name키의 값을 "안녕" 뒤에 넣어 반환.
+
+ ```js
+        function Welcome(props) {
+            return <h1>안녕하세요, {props.name}님</h1>;
+        }
+
+ ```
+
+#### 3.클래스형 컴포넌트
+* Welcome 컴포넌트는 React.Component class로 부터 상속 받아 선언함.
+```js
+        class Welcome extends React.Component {
+            render() {
+                return <h1>안녕하세요, {this.props.name}님</h1>;
+            }
+        }
+```
+#### 4.컴포넌트 이름 짓기
+* 이름은 항상 대문자 시작 <br>
+   &nbsp;&nbsp; -> 리액트는 소문자로 시작하는 컴포넌트를 DOM 태그로 인식하기 때문.
+**컴포넌트 파일 이름과 컴포넌트 이름은 같게 함**
+
+#### 5.컴포넌트의 렌더링
+```js
+function  Welcome(props) {
+    return <h1> HI, {props.name}</h1>;
+}
+
+const element = <Welcome name="인제" />;
+ ReactDOM.render(
+    element,
+    document.getElementById('root')
+ );
+```
+#### 5.4컴포넌트 합성
+* 컴포넌트 합성은 여러 개의 컴포넌트를 합쳐서 하나의 컴포넌트를 만드는 것
+* 리액트에서 컴포넌트 안에 또 다른 컴포넌트를 사용할 수 있기 때문에, 복잡한 화면을 러 개의ㅐ 컴포넌트로 나누어 구현 O
+* 다음 코드에서 props의 값을 다르게 해 Welcome 컴포넌트 여러번 사용
+```js
+function Welcome(props) {
+  return <h1>Hello, {props.name}</h1>;
+}
+
+function App(props) {
+  return (
+    <div>
+      <Welcome name="Mike" />
+      <Welcome name="Steve" />
+      <Welcome name="Jane" />
+    </div>
+  );
+}
+
+ReactDOM.render(
+  <App />,
+  document.getElementById('root')
+);
+```
+
+#### 5.5 컴포넌트 추출
+* 복잡한 컴포넌트를 쪼개서 여러 개의 컴포넌트로 나눌 수도 있음.
+* 큰 컴포넌트에서 일부를 추출해서 새로운 컴포넌트를 만드는 것.
+* 실무에선 처음부터 1개의 컴포넌트에 하나의 기능만 사용하도록 설계하는 것이 좋음.
+<br><br>
+
+```js
+function Comment(props) {
+  return (
+    <div className="Comment">
+      <Avatar user={props.author} />
+      <div className="user-info">
+        <div className="user-info-name">
+          {props.author.name}
+        </div>
+        <div className="user-info-text">
+          {props.text}
+        </div>
+      </div>
+    </div>
+  );
+}
+function Avatar(props) {
+  return (
+    <img className="avatar"
+      src={props.user.avatarUrl}
+      alt={props.user.name}
+    />
+  );
+}
+```
+
+* Comment는 댓글 표시 컴퍼넌트.
+* 내부에서 이미지, 이름, 댓글과 작성일이 포함되어 있음.
+* 첫 번째로 이미지 부분을 Avatar 컴포넌트로 출력
+* 두 번째로 사용자 정보 부분 추출
+* 컴포넌트 이름은 UserInfo. React 컴포넌트 이름은 Camel notation을 사용
+* UserInfo 안에 Avatar 컴포넌트를 넣어 완성시킴.
+
+```js
+function UserInfo(props) {
+  return (
+    <div className="userInfo">
+      <Avatar user={props.user} />
+      <div className="user-info-name">
+        {props.user.name}
+      </div>
+    </div>
+  );
+}
+```
+
+* 추출 후 다시 결합한 UserInfo를 Comment 컴포넌트 반영하면 다음과 같은 모습이 됨.
+
+```js
+function Comment(props) {
+  return (
+    <div className="comment">
+      <UserInfo user={props.author} />
+      <div className="comment-text">
+        {props.text}
+      </div>
+      <div className="comment-date">
+        {formatDate(props.date)}
+      </div>
+    </div>
+  );
+}
+```
+
+#### 5.6 댓글 컴포넌트 만들기
+```js
+function Comment(props) {
+  return (
+    <div className="comment">
+      <UserInfo user={props.author} />
+      <div className="comment-text">
+        {props.text}
+      </div>
+      <div className="comment-date">
+        {formatDate(props.date)}
+      </div>
+    </div>
+  );
+}
+```
+
+### State: 리액트 컴포넌트의 상태
+* 상태의 의미는 정산인지 비정상인지가 아니라 컴포넌트 데이터를 의미
+* 정확히는 컴포넌트의 변경가능한 데이터를 의미
+* state가 변하면 다시 렌더링이 되기 때문에 렌더링과 관련된 값만 state에 포함 시켜야 함.
+
+### state 특징
+* 리액트 만의 특별한 형태가 아닌 단지 자바스크립트 객체일 뿐
+* constructor은 생성자이고, 그 안에 있는 this.state가 현 컴포넌트의 state임.
+* 함수형에서는 useState()라는 함수 사용.
+* state는 변경가능하다 했으나 직접 수정해선 안 됨. *(불가능 하다고 생각하는 것이 좋음.)*
+* state를 변경하고자 할 땐 **setstate()** 함수 사용
+
+### 생명주기에 대해
+* 생명주기는 컴포넌트의 생성 시점, 사용 시점, 종료 시점을 나타냄.
+* constructor가 실행되면서 컴포넌트 생성
+* 생성 직후 **componentDibMount()** 함수가 호출.
+* 컴포넌트가 소멸하기 전까지 여러 번 랜더링 함.
+* 랜더링은 **props, setState(), forceUpdate()** 에 의해 생태가 변경되면 이루어짐.
+* 렌더링이 끝나면 **componentDinUpdate()** 함수 호출.
+* 컴포넌트가 언마운트되면 **compomentWillUnmount()**함수 호출.
+
 ## 3월 27일 강의
-### JSX: JS,XML,HTML을 함께 사용할 수 있는 JS 확장 문법
+### **JSX**: JS,XML,HTML을 함께 사용할 수 있는 JS 확장 문법
 * JSX는 내부적이로 XML/HTML 코드를 JS로 변환함.
 * React 가 createElement 함수를 사용하여 자동으로 JS로 변환해줌.
 * 만일 JS로 작업할 경우 직접 createElement함수를 사용해야 함.
@@ -46,11 +265,11 @@ ________________________________________________________________________________
 * 교체하는 작업을 위해선 **Virtual DOM**을 사용
 ### 엘리먼트 렌더링 하기
 이 div태그 안에 리액트 엘리먼트가 렌더링 되며, 이 것을 Root DOM node라고 함
-```
+```js
 <div id = "root"></div>
 ```
 엘리먼틀르 렌더링하기 위해선 다음과 같은 코드 필요
-```
+```js
 const element = <h1>안녕, 리액트!</h1>;
 ReactDOM.render(lelment, document.getElementById('root'));
 ```
@@ -181,7 +400,9 @@ const p = document.auerySelector("p");
 [페이지 내 링크](#리스트)
 
 ![고양이](고양이.jpg)
-
+🎄
+🎅
+🎁
 <br><br>
 
 ---
