@@ -1,4 +1,69 @@
 # ⛄ 202230133 정지호
+## 5월 1일 강의
+### 이벤트 처리하기
+* DOM에서 클릭 이벤트 처리하는 코드
+```js
+<button onclick="activate()">
+  Activate
+</button>
+```
+
+* React에서 클릭 이벤트 처리하는 예제 코드
+```js
+<button onClick={activate}>
+  Activate
+</button>
+```
+
+**둘의 차이점** <br>
+1) 이벤트 이름이 onclick에서 onClick으로
+
+```js
+class Toggle extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {isToggleOn: true};
+
+    // callback에서 `this`를 사용하기 위해선 바인딩을 필수적으로 해줘야 함.
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    this.setTate(prevState => ({
+      isToggleOn: !prevState.isToggleOn
+    }));
+  }
+
+  render() {
+    return (
+      <button onClick={this.handleClick}>
+        {this.state.isTogggleOn ? '켜짐' :'꺼짐'}
+      </button>
+      
+    )
+  }
+}
+```
+* 이벤트 핸들러 추가 방법?
+* 버튼을 클릭하면 이벤트 핸들러 함수인 handleClick()함수를 호출하도록 되어 있습니다.
+* bind를 사용하지 않으면 this.handleClick은 글롭ㄹ 스코프에서 호출되어, undefined로 사용할 수 없기 때문.
+* bind를 사용하지 않으려면 화살표 함수를 사용하는 방법도 있음.
+* 하지만 클래스 컴포넌트는 이제 거의 사용하지 않기 때문에 이 내용은 참고만.
+### 훅의 규칙
+**1. 무조건 최상위 레벨에서만 호출.**
+* 따라서 반복문이나 조건문 또는 중첩된 함수들 안에서 훅을 호출하면 안 됨.
+* 규칙에 따라 훅은 컴포넌트가 렌더링 될 때마다 같은 순서로 호츌 되어야 함. <br>
+
+**2. 함수형 컴포넌트에서만 훅을 호출해야 함.**
+* 따라서 일반 자바스크립트 함수에서 훅을 호출하면 안 됨.
+* 훅은 함수형 컴포넌트 혹은 직접 만든 커스텀 훅에서만 호출할 수 있음.
+
+**주의할 점** 
+* 일반 컴포넌트와 마찬가지로 다른 훅을 호출하는 것은 무조건 커스텀 훅의 최상위 레벨에서만 해야함.
+* 이름은 반드시 use사용.(그렇지 않으면 다른 훅을 불러올 수 없음.)<br>
+
+
 ## 4월 17일 강의
 ### 훅Hook이란 무엇인가?
 * 클래스형 컴포넌트에서는 생성자(constructor)에서 state를 정의하고, **setState() 함수**를 통해 state를 업데이트 합니다.
