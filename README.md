@@ -1,4 +1,78 @@
 # ⛄ 202230133 정지호
+
+## 5월 29일 강의
+### select 태그
+  * select 태그 == textarea와 동일
+
+### File input 태그
+  * File input 태그는 그 값이 읽기 전용이기에 <b>리액트에선 비제어 컴포넌트</b>가 됨.
+  ``` <input type="file" />```
+
+### Input Null Value
+  * 제어 컴포넌트에 value prop을 정해진 값으로 넣으면 코들르 수정하지 않는 한 입력값을 바꿀 수 없음.
+  * 만약 value prop은 넣되 자유롭게 입력할 수 있게 만들고 싶다면 값이 undefined 또는 null을 넣어주면 됨.
+  ```js
+  ReactDOM.render( <input value="hi/>, rootNode);
+
+  setTimeout(function() {
+    ReactDOM.render(<input value={null} />, rootNode);
+  }, 1000);
+
+  ```
+
+
+## 5월 22일 강의
+### 리스트 키
+
+  * 리스트는 자바스크립트의 변수나 객체를 하나의 변수로 묶어 놓은 배열과 같은 것
+  * 키는 각 객체나 아이템을 구분할 수 있는 고유한 값을 의미
+  * 리스트에서의 키는 "리스트에서 아이템을 구별하기 위한 고유한 문자열
+  * 이 키는 리스트에서 어떤 아이템이 변경, 추가 또는 제거되었는지 구분하기 위해 사용
+  * 키는 같은 리스트에 있는 엘리먼트 사이에서만 고유한 값이면 됨.
+
+* 배열을 렌더링하게 될 때는 키를 설정해야 렌더링을 효율적으로 할 수 있음.
+* map() 함수 안에 있는 Elements는 꼭 key가 필요
+
+### 제어 컴포넌트
+* 제어 컴포넌트는 사용자가 입력한 값에 접근하고 제어할 수 있도록 해주는 컴포넌트
+
+* html -> 리액트 제어 컴포넌트
+```js
+function NameForm(props) {
+  const [value, setValue] = useState('');
+
+  const handleChange = (event) => {
+    alert('입력한 이름: '+ value);
+    event.preventDefault();
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <label>
+        이름:
+        <input type="text" value={value} onChange={handleChange} />
+      </label>
+      <button type="submit">제출</button>
+    </form>
+  )
+}
+```
+
+### 폼
+  * 폼은 일반적으로 사용자로부터 입력을 받기위한 양식에서 많이 사용.
+
+### Controlled Components
+  * 값이 리액트의 통제를 받는 Input Form Element
+  * 모든 데이터를 state에서 관리
+  * 사용자의 입력을 직접적으로 제어할 수 있음
+
+* TextArea: 여러 줄에 걸쳐 긴 텍스트를 입력받기 위한 HTML 태그
+* Select: Drop-down 목록을 보여주기 위한 HTML 태그(input/ textarea/ select 태그 사용 방법 유사)
+* File input: 값이 읽기 전용이기 때문에 리액트에서는 비제어 컴포넌트가 됩니다.
+
+
+
+
 ## 5월 8일 강의
 ### 인라인 조건
 #### 1. 인라인 if
