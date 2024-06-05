@@ -1,4 +1,35 @@
 # ⛄ 202230133 정지호
+## 6월 5일 강의
+
+### Shared State
+* Shared state는 state의 공유를 의미
+* 같은 부모 컴포넌트의 state를 자식 컴포넌트가 공유해 사용하는 것.
+* 다음 그림은 부모 컴포넌트가 섭씨 온도의 state를 갖고 있고, 이 것을 컴포넌트C와 컴포넌트 F가 공유해 사용하는 것을 보여줌.
+```js
+return (
+  // 변경 전: <input value={temperature} onChange={handleChange} />
+  <input value={props.temperature} onChange={handleChage} />
+)
+```
+* 다음은 하위 컴포넌트의 **state**를 부모 컴포넌트로 올려서 **share state**를 적용
+* 이것을 **Lifting State Up**라 함.
+* 이를 위해 먼저 TemperatureInput 컴포넌트에서 온도 값을 가져오는 부분을 다음과 같이 수정함(온도를 state에서 가져오지 않고 props를 통해 가져오게 됨.)
+
+### 합성(Composition)
+* 합성은 여러 개의 컴포넌트를 합쳐 새로운 컴포넌트를 만드는 것.
+#### [1] Containment (담다, 포함하다, 격리하다)
+* 특정 컴포넌트가 하위 컴포넌트를 포함하는 형태의 합성 방법
+* 컴포넌트에 따라 어떤 자식 엘리먼트가 들어올 지 미리 예상할 수 없는 경우가 있음
+* 범용적인 박스역할을 하는 Sidebar 혹은 Dialog와 같은 컴포넌트에서 특히 자주 볼 수 있음.
+* 이런 컴포넌트에서는 children prop을 사용해 자식 엘리먼트를 출력에 그대로 전달하는 것이 좋음.
+* 이때 children prop은 컴포넌트의 props에 기본적으로 들어있는 children속성을 사용.
+
+#### [2] Specilalization (특수화, 전문화)
+* 웰컴다이얼로그는 다이얼로그의 특별한 케이스.
+* 범용적 개념을 구별이 되게 구체화하는 것을 특수화라고 함.
+* 객체지향 언어에서는 상속을 사용해 특수화를 구현.
+* 리약트에선 합성을 사용해 특수화를 구현함.
+
 
 ## 5월 29일 강의
 ### select 태그
