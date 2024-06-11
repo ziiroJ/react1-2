@@ -1,6 +1,7 @@
 # ⛄ 202230133 정지호
 ## 6월 11일 강의
 
+
 ### Containment와 Specialization을 같이 사용
 * Containment를 위해 ```props.children```을 사용하고, Specailization을 위해 직접 정의한 ``props``를 사용하면 됨.
 * Dialog 컴포넌트는 이전의 것과 비슷한데 Containment를 위해 끝부분에 ``props.children``을 추가함.
