@@ -1,4 +1,83 @@
 # ⛄ 202230133 정지호
+## 6월 11일 강의
+
+### Containment와 Specialization을 같이 사용
+* Containment를 위해 ```props.children```을 사용하고, Specailization을 위해 직접 정의한 ``props``를 사용하면 됨.
+* Dialog 컴포넌트는 이전의 것과 비슷한데 Containment를 위해 끝부분에 ``props.children``을 추가함.
+* Dialog를 사용하는 SignDialog는 Specialization을 위해 ``props``인 title, message에 값을 넣어주고 있고, 입력 받기위해 ``<input>``과 ``<button>``을 사용.
+* 이 두개의 태그는 모두 ``props.children``으로 전달되어 다이얼로그에 표시됨.
+* 위와 같은 형태로 Containment와 Specialization을 사용할 수 있음.
+
+### 상속에 대해 알아보기
+* 합성과 대비되는 개념으로 상속이 있음
+* 자식 클래스는 부모 클래스가 가진 변수나 함수 등의 속성을 모두 갖게 되는 개념.
+* 하지만 리액트에서는 상속보다 합성을 통해 새로운 컴포넌트를 생성함.
+* 복잡한 컴포넌트를 쪼개 여러 개의 컴포넌트로 만들고, 만든 컴포넌트를 조합해 새로운 컴포넌트로 만들자!
+
+### 컨텍스트
+* 기존의 일반적인 리액트에선 데이터가 컴포넌트의 ``props``를 통해 부모에서 자식으로 단방향으로 전달됨.
+* 컨텍스트는 리액트 컴포넌트 사이에서 데이터를 기존의 ``props``를 통해 전달하는 방식 대신 '컴포넌트 트리를 통해 곧바로 컴포넌트에 전달하는 새로운 방식'을 제공
+* 이 것을 통해 어떤 컴포넌트라도 쉽게 데이터에 접근할 수 있음.
+* 컨텍스트를 사용하면 일일이 ``props``로 전달할 필요없이 그림처럼 데이터를 필요로 하는 컴포넌트에 곧바로 데이터를 수 있음.
+
+### 컨텍스트, 언제 사용해야 할까?
+* 여러 컴포넌트에서 자주 필요로 하는 데이터는 로그인 여부, 로그인 정보, UI테마, 현재 선택된 언어 등이 있습니다.
+* props를 통해 데이터를 전달하는 기존 방식은 실제 데이터를 필요로 하는 컴포넌 트까지의 깊이가 깊어질 수록 복잡해짐.
+*  또한 반복적인 코드를 계속해서 작성해 주어야 하기 때문에 비효율적이고 가독성이 떨어짐.
+
+### 컨텍스트 API
+### React createContext
+* 컨텍스트를 생성성하기 위한 함수.
+* 파라메타에는 기본값을 넣어주면 됨.
+* 하위 컴포넌트는 가장 가까운 상위 레벨의 Provider로 부터 컨텍스트를 받게 되지만, 만일 Provider를 찾을 수 없다면 설정한 기본값을 사용하게 됨.
+  ```js
+   const MyContext  = React. createContext(기본값);
+* ```
+### Context Provider
+* Context.Provider 컴포넌트로 하위 컴포넌트들을 감싸주면 모든 하위 컴포넌트들이 해당 컨텍스 트의 데이터에 접근할 수 있게 됨.
+```js
+  ‹MyContext. Provider value={/* some value */}›
+```
+* Provider 컴포넌트에는 value라는 prop이 있고, 이것은 Provider 컴포넌트 하위에 있는 컴포넌트에게 전달.
+* 하위 컴포넌트를 consumer 컴포넌트라고 부름.
+
+### Class.contextType
+* Provider 하위에 있는 클래스 컴포넌트에서 컨텍스트의 데이터에 접근하기 위해 사용합니다.
+* Class 컴포넌트는 더 이상 사용하지 않으므로 참고만 합니다.
+### Context. Consumer
+* 함수형 컴포넌트에서 Context.Consumer를 사용하여 컨텍스트를 구독할 수 있습니다.
+```js
+ ‹NyContext, Consumer>
+ {Value => /• 컨텍스트의 값에 따라서 컴포넌트들을 렌더링 }
+ </MyContext. Consumer >
+```
+* 컴포넌트의 자식으로 함수가 올 수 있는데 이것을 function as a child라고 부릅니다.
+* Context.Consumer로 감싸주면 자식으로 들어간 함수가 현재 컨텍스트의 value를 받아서 리액 트 노드로 리턴합니다.
+* 함수로 전달되는 value는 Provider의 value prop과 동일합니다.
+
+### 여러 개의 컨텍스트 사용하기
+* 여러 개의 컨텍스트를 동시에 사용하려면 Context,Provider를 중첩해서 사용.
+* ThemeContext와 UserContext를 중첩해서 사용해 여러 개의 컨텍스트를 동시에 사용할 수 있다.
+* 하지만 두 개 또는 그 이상의 컨텍스트 값이 자주 함께 사용될 경우 모든 값을 한 번에 제공해 주는 별도의 render prop 컴포넌트를 직접 만드는 것을 고려하는 것이 좋다.
+
+### useContext
+* 함수형 컴포넌트에서 컨텍스트를 사용하기 위해 컴포넌트를 매번 Consumer 컴포넌트로 감싸주 는 것보다 더 좋은 방법이 있다. 바로 7장에서 배운 **Hook**.
+* useContext() 훅은 React.createContext() 함수 호출로 생성된 컨텍스트 객체를 인자로 받아 현재 컨텍스트의 값을 리턴.
+```js
+function MyComponent (props) {
+    const value = useContext (MyContext);
+    return (
+        ...
+    )
+｝
+
+```
+* 이 방법도 가장 가까운 상위 Provider로 부터 컨텍스트의 값을 받아옴.
+* 만일 값이 변경되면 ``useContext()`` 혹을 사용하는 컴포넌트가 재 렌더링.
+또한 useContext() 훅을 사용할 때에는 파라미터로 컨텍스트 객체를 넣어줘야 한다는 것을 기억 해야 함.
+
+
+
 ## 6월 5일 강의
 
 ### Shared State
