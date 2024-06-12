@@ -52,7 +52,7 @@
         text-align:center;`
       ```
   #### styled-components의 props 사용하기
-  * 
+  
 
 
 
