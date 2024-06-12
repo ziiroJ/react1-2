@@ -1,6 +1,62 @@
 # ⛄ 202230133 정지호
-## 6월 11일 강의
+## 6월 12일 강의
+### CSS(Cascading Style Sheets)
+* 스타일간의 충돌을 막기 위해 계단식으로 스타일을 적용시키는 규칙을 갖음.
+* 하나의 스타일이 여러 개의 엘리먼트에 적용될 수도 있고, 하나의 엘리먼트에도 여러개의 스타일이 적용될 수 있음.
+* 엘리먼트 스타일이 적용되는 규칙을 selector(선택자)라 하며, CSS는 선택자와 스타일로 이루어짐.
+### CSS 문법 · 선택자
+* 선택자를 먼저 쓰고 다음에 적용할 스타일을 중괄호 안에 세미콜론으로 구분하여 하나씩 작성함.
+* 선택자는 HTML 엘리먼트를 직접 넣어도 되고, 엘리먼트의 조합 혹은 class 형태로 작성 가능.
+* 스타일은 property와 key value로 이루어 지며, 이들은 콜론(:)으로 구분함.
+* 스타일은 class로 정의하도록.(id는 js에서 대부분 사용하기 때문에 스타일을 id로 사용할 경우 가독성이 굉장히 떨어짐.
+)
+  #### 상태 선택자
+  * :hover: 마우스를 올렸을 때
+  * :focus: 포커스가 맞춰졌을 때
+  * :active: 클릭되었을 때
 
+### 레이아웃과 관련된 속성
+* 화면에 엘리먼트를 어떻게 배치할 것인지 정의
+* 가장 중요한 속성은 **display**
+* 모든 엘리먼트는 기본 display 속성을 갖고 있으나 기본값을 변경할 순 있음.
+  * **none** : 존재는 하나, 화면에 보이지 않음.
+  * **block** : 세로로 정렬, width·height를 갖음. *(크기 상관없이 한 줄 점유)*
+  * **inline** : 가로로 정렬, width·height를 갖을 수 없음. (컨텐츠 크기 만큼 공간 점유)
+  * **inline-block** : 기본적으로 inline의 특성을 갖으나, width·height 등 block 특성을 사용할 수있음.
+
+  #### 대표적 block · inline 태그
+  * Block: ``<div> <p> <form> <table> <h1>~<h6> <ul> <ol> <li> 등``
+  * inline: ``<span> <a> <br> <strong> <label> <img> <img> <em> <input>``
+
+* visibility : 엘리먼트의 가시성 정의
+  * display:none vs display:hidden
+    * display:none은 영역이 보이지 않고, display:hidden은 차지하는 영역은 보임.
+* position : 엘리먼트를 어떻게 위치 시킬 것인지 정의
+  * static: 원래 순서로 위치
+  * sticky(구:fixed) : 상대적 위치
+  * relative 상대적, absolute 절대적 위치 지정
+
+### styled-components
+
+  #### styled-components 설치하기
+  *  ``npm install styled-components``
+
+  #### 기본 사용법
+  * 태그 템플릿 리터럴을 사용해 구성 요소의 스타일 지정
+  * 태그드 템플릿리터럴은 js에서 제공하는 문법 중 하나로 리터럴 템플릿 형채로 사용
+  * `` styled.<HTML tag>`...` `` 형식으로 사용
+      ```js
+      const Title = styled.h1`
+        font-size: 1.5em;
+        color:white;
+        text-align:center;`
+      ```
+  #### styled-components의 props 사용하기
+  * 
+
+
+
+## 6월 11일 강의
 
 ### Containment와 Specialization을 같이 사용
 * Containment를 위해 ```props.children```을 사용하고, Specailization을 위해 직접 정의한 ``props``를 사용하면 됨.
@@ -33,7 +89,7 @@
 * 하위 컴포넌트는 가장 가까운 상위 레벨의 Provider로 부터 컨텍스트를 받게 되지만, 만일 Provider를 찾을 수 없다면 설정한 기본값을 사용하게 됨.
   ```js
    const MyContext  = React. createContext(기본값);
-* ```
+   ```
 ### Context Provider
 * Context.Provider 컴포넌트로 하위 컴포넌트들을 감싸주면 모든 하위 컴포넌트들이 해당 컨텍스 트의 데이터에 접근할 수 있게 됨.
 ```js
