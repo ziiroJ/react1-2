@@ -1,50 +1,63 @@
 # ⛄ 202230133 정지호
 ## 6월 12일 강의
 ### CSS(Cascading Style Sheets)
-* 스타일간의 충돌을 막기 위해 계단식으로 스타일을 적용시키는 규칙을 갖음.
+* 스타일간의 충돌을 막기 위해 **계단식으로 스타일을 적용시키는 규칙**을 갖음.
 * 하나의 스타일이 여러 개의 엘리먼트에 적용될 수도 있고, 하나의 엘리먼트에도 여러개의 스타일이 적용될 수 있음.
 * 엘리먼트 스타일이 적용되는 규칙을 selector(선택자)라 하며, CSS는 선택자와 스타일로 이루어짐.
 ### CSS 문법 · 선택자
 * 선택자를 먼저 쓰고 다음에 적용할 스타일을 중괄호 안에 세미콜론으로 구분하여 하나씩 작성함.
 * 선택자는 HTML 엘리먼트를 직접 넣어도 되고, 엘리먼트의 조합 혹은 class 형태로 작성 가능.
-* 스타일은 property와 key value로 이루어 지며, 이들은 콜론(:)으로 구분함.
-* 스타일은 class로 정의하도록.(id는 js에서 대부분 사용하기 때문에 스타일을 id로 사용할 경우 가독성이 굉장히 떨어짐.
-)
-  #### 상태 선택자
-  * :hover: 마우스를 올렸을 때
-  * :focus: 포커스가 맞춰졌을 때
-  * :active: 클릭되었을 때
+* 스타일은 ``property``와 ``key value``로 이루어 지며, 이들은 *콜론(:)* 으로 구분하고, 각 스타일은 *세미클론(;)* 으로 구분합니다..
+* 스타일은 무조건 **class**로 정의하도록 한다. &nbsp; *(id는 js에서 대부분 사용하기 때문에 스타일을 id로 사용할 경우 가독성이* 굉장히 떨어짐.)
+
+  #### 예시
+  1. &nbsp;태그 직접 사용
+  2. &nbsp;id 선택자
+  3. &nbsp;class 선택자
+  4. &nbsp;전체 선택자
+  5. &nbsp;그룹 선택자
+  6. &nbsp;상태 선택자
+     #### 상태 선택자
+      * :hover : 마우스를 올렸을 때
+      * :focus : 포커스가 맞춰졌을 때
+      * :active : 클릭되었을 때
 
 ### 레이아웃과 관련된 속성
 * 화면에 엘리먼트를 어떻게 배치할 것인지 정의
 * 가장 중요한 속성은 **display**
 * 모든 엘리먼트는 기본 display 속성을 갖고 있으나 기본값을 변경할 순 있음.
   * **none** : 존재는 하나, 화면에 보이지 않음.
-  * **block** : 세로로 정렬, width·height를 갖음. *(크기 상관없이 한 줄 점유)*
-  * **inline** : 가로로 정렬, width·height를 갖을 수 없음. (컨텐츠 크기 만큼 공간 점유)
+  * **block** : 세로로 정렬, width·height를 갖음. &nbsp;*(크기 상관없이 한 줄 점유)*
+  * **inline** : 가로로 정렬, width·height를 갖을 수 없음. &nbsp;*(컨텐츠 크기 만큼 공간 점유)*
   * **inline-block** : 기본적으로 inline의 특성을 갖으나, width·height 등 block 특성을 사용할 수있음.
+  * **flex** : 컨테이너의 형태로 엘리먼트 관리.
 
   #### 대표적 block · inline 태그
-  * Block: ``<div> <p> <form> <table> <h1>~<h6> <ul> <ol> <li> 등``
-  * inline: ``<span> <a> <br> <strong> <label> <img> <img> <em> <input>``
+  * Block : ``<div>`` ``<p>`` ``<form>`` ``<table>`` ``<h1>~<h6>`` ``<ul>`` ``<ol>`` ``<li>`` 등…
+  * inline : ``<span>`` ``<a>`` ``<br>`` ``<strong>`` ``<label>`` ``<img>`` ``<em>`` ``<input>``
 
-* visibility : 엘리먼트의 가시성 정의
-  * display:none vs display:hidden
-    * display:none은 영역이 보이지 않고, display:hidden은 차지하는 영역은 보임.
-* position : 엘리먼트를 어떻게 위치 시킬 것인지 정의
-  * static: 원래 순서로 위치
-  * sticky(구:fixed) : 상대적 위치
-  * relative 상대적, absolute 절대적 위치 지정
-
+* **visibility** : 엘리먼트의 가시성 정의
+  * ***display : none vs display : hidden***
+    * ``display : none`` 은 영역이 보이지 않고, ``display : hidden`` 은 차지하는 영역은 보임.
+* **position** : 엘리먼트를 어떻게 위치 시킬 것인지 정의
+  * **``static``** : 원래 순서로 위치
+  * **``sticky``(구:fixed)** : 상대적 위치
+  * **``relative``** 상대적, **``absolute``** 절대적 위치 지정
+* **font** :
+  * ``font-size`` 등 크기를 나타내는 단위: ``px``, ``em``, ``rem``, ``vm`` …
+  * 1em == 16px
 ### styled-components
+  * css 문법을 그대로 사용하려면 결과물을 스타일링된 컴포넌트 형태로 만들어 주는 오픈소스 라이브러리
+  * 리액트 개발에 많이 사용.
 
   #### styled-components 설치하기
   *  ``npm install styled-components``
+  * npm v5부터는 사용하지 않아도 됨.
 
   #### 기본 사용법
-  * 태그 템플릿 리터럴을 사용해 구성 요소의 스타일 지정
+  * 태그드 템플릿 리터럴을 사용해 구성 요소의 스타일 지정
   * 태그드 템플릿리터럴은 js에서 제공하는 문법 중 하나로 리터럴 템플릿 형채로 사용
-  * `` styled.<HTML tag>`...` `` 형식으로 사용
+  * **`` styled.<HTML tag>`...` ``** 형식으로 사용 <br><br>
       ```js
       const Title = styled.h1`
         font-size: 1.5em;
@@ -52,6 +65,10 @@
         text-align:center;`
       ```
   #### styled-components의 props 사용하기
+  * props를 이용하여 조건이나 동적으로 변하는 값을 사용해서 스타일링을 할 수 있음.
+
+  #### styled-components의 스타일 확장하기
+  * 먼저 정의한 스타일 컴포넌트에 스타일을 추가하여 재정의 하는 것이 가능
   
 
 
@@ -165,7 +182,33 @@ return (
 * 범용적 개념을 구별이 되게 구체화하는 것을 특수화라고 함.
 * 객체지향 언어에서는 상속을 사용해 특수화를 구현.
 * 리약트에선 합성을 사용해 특수화를 구현함.
+* 다음 예와 같이 특수화는 범용적으로 쓸 수 있는 컴포넌트를 만들어 놓고 이를 특수한 목적으로 사용하는 사용방식.
 
+    ```js
+
+    function Dialog(props) {
+        return (
+            <FancyBorder color="blue">
+                <h1 className="Dialog-title>
+                    {props.title}
+                </h1>
+                <p className="Dialog-message">
+                    {props.message}
+                </p>
+            </FancyBorder>
+        )
+    }
+
+    function WelcomeDialog(props) {
+        return (
+            <Dialog
+                title="어서오세요"
+                message="우리 사이트에 방문하신 것을 환영합니다!"
+            />
+        )
+    }
+
+    ```
 
 ## 5월 29일 강의
 ### select 태그
